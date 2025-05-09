@@ -1,31 +1,42 @@
-<h3> {{ title }} </h3>
-<!-- <button (click)="mostrarAlerta()">Mostrar Alerta</button> -->
-<button class="btn btn-primary my-3"> {{ textTask.textCreate }} <i class="fas fa-plus-circle text-white"></i> </button>
-@if (tasks.length == 0) {
-<div class="alert alert-warning fw-bold"> {{ textTask.notRegister }} </div>
-} @else {
-<table class="table table-hover table-striped">
-    <thead>
-        <tr>
-            <!-- <th>id</th> -->
-            <th> {{ textTask.titleTable }} </th>
-            <th> {{ textTask.descriptionTable }} </th>
-        </tr>
-    </thead>
-    <tbody>
-        @for (task of tasks; track $index) {
-        <tr>
-            <!-- <td> {{user.id}} </td> -->
-            <td> {{task.titulo}} </td>
-            <td> {{task.descripcion}} </td>
-            <td class="text-end">
-                <button class="btn btn-danger btn-sm">
-                    {{ textTask.textDelete }} <i class="fas fa-trash text-white" title="Eliminar tarea"></i>
-                </button>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
-}
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h3 class="card-title"> {{ title }} </h3>
+            <button class="btn btn-primary my-3">
+                {{ textTask.textCreate }} <i class="fas fa-plus-circle text-white"></i>
+            </button>
 
+            @if (tasks.length == 0) {
+            <div class="alert alert-warning fw-bold">
+                {{ textTask.notRegister }}
+            </div>
+            } @else {
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th> {{ textTask.titleTable }} </th>
+                            <th> {{ textTask.descriptionTable }} </th>
+                            <th class="text-end">ACCIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (task of tasks; track $index) {
+                        <tr>
+                            <td> {{ task.titulo }} </td>
+                            <td> {{ task.descripcion }} </td>
+                            <td class="text-end">
+                                <button class="btn btn-danger btn-sm">
+                                    {{ textTask.textDelete }}
+                                    <i class="fas fa-trash text-white" title="Eliminar tarea"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            }
+        </div>
+    </div>
+</div>
