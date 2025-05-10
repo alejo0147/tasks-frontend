@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import Swal from 'sweetalert2';
 import { Task } from '../../../models/task';
 import { mockTask } from '../../../utils/mocks/task';
 import { TaskService } from '../../../services/task.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { SharingDataService } from '../../../services/sharing-data.service';
 
 @Component({
   selector: 'app-task',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './task.component.html',
   styleUrl: './task.component.css'
 })
-export class TaskComponent implements OnInit {
+export class TaskComponent {
 
   title: string = '';
   textTask = mockTask;
@@ -20,32 +20,19 @@ export class TaskComponent implements OnInit {
 
   constructor(
     private taskService: TaskService,
+    private sharingData: SharingDataService,
     private router: Router
   ) {
     this.title = this.textTask.title;
-  }
-
-  ngOnInit(): void {
-    const nav = this.router.getCurrentNavigation();
-    const stateTasks = nav?.extras.state?.['tasks'];
-
-    if (stateTasks) {
-      this.tasks = stateTasks;
+    if (this.router.getCurrentNavigation()?.extras.state) {
+      this.tasks = this.router.getCurrentNavigation()?.extras.state!['tasks'];
     } else {
-      this.taskService.findAll().subscribe(tasks => {
-        this.tasks = tasks;
-        console.log('Tareas cargadas:', tasks); // para debug
-      });
+      this.taskService.findAll().subscribe(tasks => this.tasks = tasks);
     }
   }
-
-  mostrarAlerta() {
-    Swal.fire({
-      title: '¡Hola!',
-      text: 'Esta es una alerta con SweetAlert2 en Angular',
-      icon: 'success',
-      confirmButtonText: 'Aceptar'
-    });
+  
+  onRemoveTask(id: number): void {
+    this.sharingData.idTaskEventEmitter.emit(id);   
   }
 
 }

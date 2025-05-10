@@ -1,0 +1,49 @@
+<div class="card">
+        <div class="card-content">
+            <div class="card-header">
+                <h5 class="card-title">Form Create Task</h5>
+            </div>
+            <div class="card-body">
+
+                <form (ngSubmit)="onSubmit(taskForm)" #taskForm="ngForm">
+
+                    <div>
+                        <input placeholder="Título" name="titulo" [(ngModel)]="task.titulo" class="form-control my-2" required
+                            #titulo="ngModel">
+
+                        @if (titulo.invalid && (titulo.dirty || titulo.touched)) {
+                        @if(titulo.errors!['required']){
+                        <div class="text-danger">
+                            Título es requerido
+                        </div>
+                        }
+                        }
+                    </div>
+                    <div>
+                        <input placeholder="Descripción" name="descripcion" [(ngModel)]="task.descripcion" required
+                            class="form-control my-2" #descripcion="ngModel">
+
+                        @if (descripcion.invalid && (descripcion.dirty || descripcion.touched)) {
+                        @if(descripcion.errors!['required']){
+                        <div class="text-danger">
+                            La descripcion es requerida
+                        </div>
+                        }
+                        }
+                    </div>
+
+                    <div>
+                        <button type="submit" class="btn btn-primary m-2" [disabled]="taskForm.invalid">
+                            {{(task.id > 0)? 'Update': 'Create'}}
+                        </button>
+
+                        <button type="button" class="btn btn-secondary my-2" (click)="onClear(taskForm)">
+                            Clear
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+</div>

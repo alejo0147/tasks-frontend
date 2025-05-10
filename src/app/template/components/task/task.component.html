@@ -2,7 +2,7 @@
     <div class="card shadow-sm">
         <div class="card-body">
             <h3 class="card-title"> {{ title }} </h3>
-            <button class="btn btn-primary my-3">
+            <button class="btn btn-primary my-3" [routerLink]="['/tasks/create']">
                 {{ textTask.textCreate }} <i class="fas fa-plus-circle text-white"></i>
             </button>
 
@@ -26,7 +26,7 @@
                             <td> {{ task.titulo }} </td>
                             <td> {{ task.descripcion }} </td>
                             <td class="text-end">
-                                <button class="btn btn-danger btn-sm">
+                                <button class="btn btn-danger btn-sm" (click)="onRemoveTask(task.id)">
                                     {{ textTask.textDelete }}
                                     <i class="fas fa-trash text-white" title="Eliminar tarea"></i>
                                 </button>
